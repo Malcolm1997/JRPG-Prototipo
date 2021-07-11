@@ -19,9 +19,6 @@ public class Move : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        
-
         if (position == transform.position)
         {
             if (Input.GetKeyDown(KeyCode.D) && MovD.movD)
@@ -43,6 +40,4 @@ public class Move : MonoBehaviour
         }
         transform.position = Vector3.MoveTowards(transform.position, position, 2f * Time.deltaTime);
     }
-
-    
 }

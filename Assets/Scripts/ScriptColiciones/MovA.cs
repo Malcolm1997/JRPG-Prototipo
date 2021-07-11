@@ -11,7 +11,7 @@ public class MovA : MonoBehaviour
         {
             movA = false;
         }
-        if (other.gameObject.CompareTag("arbusto"))
+        if (other.gameObject.CompareTag("arbusto") || other.gameObject.CompareTag("piso"))
         {
             movA = true;
         }

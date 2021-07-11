@@ -11,7 +11,7 @@ public class MovD : MonoBehaviour
         {
             movD = false;
         }
-        if (other.gameObject.CompareTag("arbusto"))
+        if (other.gameObject.CompareTag("arbusto") || other.gameObject.CompareTag("piso"))
         {
             movD = true;
         }

@@ -11,7 +11,7 @@ public class MovW : MonoBehaviour
         {
             movW = false;
         }
-        if (other.gameObject.CompareTag("arbusto"))
+        if (other.gameObject.CompareTag("arbusto") || other.gameObject.CompareTag("piso"))
         {
             movW = true;
         }
