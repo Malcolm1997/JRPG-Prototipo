@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerPelea : MonoBehaviour
 {
@@ -14,8 +15,10 @@ public class PlayerPelea : MonoBehaviour
     public float currentValuePlayer, currentValueEnemigo;
     float defensaPlayer = 0;
     float defensaEnemiga = 0;
-    public GameObject canvas;
+    public GameObject canvas, canvasFinal;
+    public Text final;
     bool turno = true;
+
 
     void Start()
     {
@@ -33,11 +36,15 @@ public class PlayerPelea : MonoBehaviour
     {
         if (currentValueEnemigo <= 0)
         {
-            Debug.Log("Ganaste");
+            canvasFinal.SetActive(true);
+            canvas.SetActive(false);
+            final.text = "Ganaste";
         }
         if (currentValuePlayer <= 0)
         {
-            Debug.Log("Perdiste");
+            canvasFinal.SetActive(true);
+            canvas.SetActive(false);
+            final.text = "Perdiste";
         }
 
         float valorRandom = Random.Range(0, 10);
