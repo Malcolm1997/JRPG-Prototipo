@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class Ataques : MonoBehaviour
 {
+
+    public GameObject canvas;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,7 +29,8 @@ public class Ataques : MonoBehaviour
             else
             {
                 Debug.Log("Hay ataque");
-                SceneManager.LoadScene("enfrentamiento");
+                canvas.SetActive(true);
+                
             }
         }
     }
