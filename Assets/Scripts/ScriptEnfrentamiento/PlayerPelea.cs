@@ -6,51 +6,108 @@ public class PlayerPelea : MonoBehaviour
 {
     //This script is an example on how to use the linear indicator asset
 
-    public LinearIndicator linearIndicator;
+    public LinearIndicator linearIndicatorPlayer;
+    public LinearIndicator linearIndicatorEnemigo;
 
 
-    public float minValue, maxValue;
-    public float currentValue;
-    float defensaActual = 0;
+    public float minValuePlayer, maxValuePlayer, minValueEnemigo, maxValueEnemigo;
+    public float currentValuePlayer, currentValueEnemigo;
+    float defensaPlayer = 0;
     float defensaEnemiga = 0;
+    public GameObject canvas;
+    bool turno = true;
 
     void Start()
     {
-        linearIndicator.SetupIndicator(minValue, maxValue);
+        linearIndicatorPlayer.SetupIndicator(minValuePlayer, maxValuePlayer);
 
-        linearIndicator.SetValue(currentValue);
+        linearIndicatorPlayer.SetValue(currentValuePlayer);
 
+        linearIndicatorEnemigo.SetupIndicator(minValueEnemigo, maxValueEnemigo);
 
+        linearIndicatorEnemigo.SetValue(currentValueEnemigo);
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (currentValue <= 0)
+        if (currentValueEnemigo <= 0)
         {
             Debug.Log("Ganaste");
         }
+        if (currentValuePlayer <= 0)
+        {
+            Debug.Log("Perdiste");
+        }
+
+        float valorRandom = Random.Range(0, 10);
+
+        if(turno == false && currentValueEnemigo > 0)
+        {
+            if (valorRandom > 5)
+            {
+                ataqueNPC();
+                turno = true;
+            }
+            else if (valorRandom > 2)
+            {
+                defensaNPC();
+                turno = true;
+            }
+        }
 
     }
 
-    public void ataque()
+    public void ataquePJ()
     {
         if(defensaEnemiga == 0)
         {
-            currentValue = currentValue - 30;
+            currentValueEnemigo = currentValueEnemigo - 30;
         } else
 
         {
-            currentValue = currentValue - (30 / defensaEnemiga * .2f);
+            currentValueEnemigo = currentValueEnemigo - (30 - (defensaEnemiga * 2f));
         }
-        linearIndicator.SetValue(currentValue);
+        linearIndicatorEnemigo.SetValue(currentValueEnemigo);
 
-        ManagerScn.turnoEnemigo = true;
-        ManagerScn.turnoPlayer = false;
+        turno = false;
     }
 
-    public void defensa()
+    public void defensaPJ()
     {
-       
+        defensaPlayer += 1;
+        turno = false;
+    }
+
+    public void pasarTurno()
+    {
+        turno = false;
+    }
+
+    public void huirPJ()
+    {
+        if (Random.Range(0, 3) >= 2)
+        {
+            canvas.SetActive(false);
+        }
+        turno = false;
+    }  
+
+    public void ataqueNPC()
+    {
+        if (defensaPlayer == 0)
+        {
+            currentValuePlayer = currentValuePlayer - 20;
+        }
+        else
+        {
+            currentValuePlayer = currentValuePlayer - (20 - (defensaPlayer * 2f));
+        }
+        linearIndicatorPlayer.SetValue(currentValuePlayer);
+    }
+
+    public void defensaNPC()
+    {
+        defensaEnemiga += 1;
     }
 }
